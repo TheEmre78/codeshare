@@ -20,14 +20,14 @@ for (let rank in ranks) {
 }
 
 const IDler = {
-  botID: "BOTUNUZUN IDSİ",
-  botToken: "BOTUNUZUN TOKENİ",
-  botSecret: "BOTUNUZUN SECRET KEYİ",
+  botID: "703534808281907240",
+  botToken: "",
+  botSecret: "VwfyD0N79YIf_KsZxd0VixrndycMiEau",
   botCallbackURL: "CALLBACK URLNİZ",
   sunucuID: "SUNUCU ID",
-  sunucuDavet: "SUNUCU DAVET",
+  sunucuDavet: "https://discord.gg/yWDSgxz",
   kodLogKanalı: "LOG KANALI",
-  sahipRolü: "SAHİP ROLÜ İD",
+  sahipRolü: ["560073681162731541","449619212177113109"],
   adminRolü: "ADMİN ROLÜ İD",
   kodPaylaşımcıRolü: "PAYALŞIMCI ROLÜ İD",
   boosterRolü: "BOOSTER ROLÜ İD",
