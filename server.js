@@ -24,19 +24,19 @@ const IDler = {
   botToken: "NzAzNTM0ODA4MjgxOTA3MjQw.XqQAjQ.1jwiy9N-MGfF6XodMZWWwzNpJQo",
   botSecret: "VwfyD0N79YIf_KsZxd0VixrndycMiEau",
   botCallbackURL: "https://dark-site.glitch.me/callback",
-  sunucuID: "SUNUCU ID",
+  sunucuID: "664563226549420052",
   sunucuDavet: "https://discord.gg/yWDSgxz",
-  kodLogKanalı: "LOG KANALI",
-  sahipRolü: ["560073681162731541","449619212177113109"],
-  adminRolü: "ADMİN ROLÜ İD",
-  kodPaylaşımcıRolü: "PAYALŞIMCI ROLÜ İD",
-  boosterRolü: "BOOSTER ROLÜ İD",
-  kodPaylaşamayacakRoller: ["BANLI ROL İD", "BANLI ROL İD"],
-  hazırAltyapılarRolü: "HAZIR ALTYAPI ROL İD",
-  hazırSistemlerRolü: "HAZIR SİSTEM ROL İD",
-  elmasKodlarRolü: "ELMAS KODLAR ID",
-  altınKodlarRolü: "ALTIN KODLAR ID",
-  normalKodlarRolü: "NORMAL KODLAR ID"
+  kodLogKanalı: "688319781644140588",
+  sahipRolü: "664570711754407946 ",
+  adminRolü: "678623115391139870",
+  kodPaylaşımcıRolü: "669959942601703435 ",
+  boosterRolü: "",
+  kodPaylaşamayacakRoller: "",
+  hazırAltyapılarRolü: "",
+  hazırSistemlerRolü: "",
+  elmasKodlarRolü: "",
+  altınKodlarRolü: "",
+  normalKodlarRolü: ""
 };
 
 const app = express();
@@ -121,7 +121,7 @@ app.get("/", (req, res) => {
 app.get("/normal", (req, res) => {
   var data = db.normal.get("kodlar");
   data = sortData(data);
-      
+
   res.render("normal", {
     user: req.user,
     kodlar: data
@@ -580,12 +580,24 @@ app.post("/paylasim", (req, res) => {
   db[obj.kod_rank].set(`kodlar.${obj.isim}`, obj);
   client.channels.cache.get(IDler.kodLogKanalı).send(
     new Discord.MessageEmbed()
-    .setColor("RANDOM")
-    .setFooter(client.guilds.cache.get(IDler.sunucuID).name, client.guilds.cache.get(IDler.sunucuID).iconURL({ dynamic: true, size: 2048}))
-    .setTimestamp()
-    .setAuthor("Bir Kod Paylaşıldı!",client.user.avatarURL)
-    .addField("Kod Bilgileri",`**Adı:** ${obj.isim} \n**Açıklaması:** ${obj.desc} \n**Değeri:** ${obj.kod_rank}`)
-    .addField("Kod Sayfası", `[Tıkla!](https://dark-site.glitch.me/${obj.kod_rank}/${obj.id})`));
+      .setColor("RANDOM")
+      .setFooter(
+        client.guilds.cache.get(IDler.sunucuID).name,
+        client.guilds.cache
+          .get(IDler.sunucuID)
+          .iconURL({ dynamic: true, size: 2048 })
+      )
+      .setTimestamp()
+      .setAuthor("Bir Kod Paylaşıldı!", client.user.avatarURL)
+      .addField(
+        "Kod Bilgileri",
+        `**Adı:** ${obj.isim} \n**Açıklaması:** ${obj.desc} \n**Değeri:** ${obj.kod_rank}`
+      )
+      .addField(
+        "Kod Sayfası",
+        `[Tıkla!](https://dark-site.glitch.me/${obj.kod_rank}/${obj.id})`
+      )
+  );
   res.redirect(`/${obj.kod_rank}/${obj.id}`);
 });
 
@@ -600,13 +612,14 @@ function sortData(object) {
   var keys = Object.keys(object);
   var newData = {};
   var arr = [];
-  keys.forEach(key => {// sup pothc :)
+  keys.forEach(key => {
+    // sup pothc :)
     arr.push(key);
   });
   arr.reverse();
   arr.forEach(key => {
     newData[key] = object[key];
-  })
+  });
   return newData;
 }
 
