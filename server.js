@@ -23,11 +23,11 @@ const IDler = {
   botID: "703534808281907240",
   botToken: "NzAzNTM0ODA4MjgxOTA3MjQw.XqQAjQ.1jwiy9N-MGfF6XodMZWWwzNpJQo",
   botSecret: "VwfyD0N79YIf_KsZxd0VixrndycMiEau",
-  botCallbackURL: "https://dark-site.glitch.me/callback",
+  botCallbackURL: "https://darkcode-kodsitesi.glitch.me/callback",
   sunucuID: "664563226549420052",
   sunucuDavet: "https://discord.gg/yWDSgxz",
   kodLogKanalı: "688319781644140588",
-  sahipRolü: "664570711754407946 ",
+  sahipRolü: "664570711754407946",
   adminRolü: "678623115391139870",
   kodPaylaşımcıRolü: "669959942601703435",
   boosterRolü: "669959942601703435",
@@ -645,7 +645,7 @@ app.use((req, res) => {
   );
 });
 
-//client.login(IDler.botToken);
+client.login(IDler.botToken);
 
 client.on("ready", () => {
   const listener = app.listen(process.env.PORT, function() {
