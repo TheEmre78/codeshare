@@ -1,41 +1,81 @@
-// client-side js, loaded by index.html
-// run by the browser each time the page is loaded
+var komutlar_button = document.getElementById('copy_komutlar');
+var komutlar_code = document.getElementById("code_komutlar") ? document.getElementById("code_komutlar").innerHTML : "-";
+var main_button = document.getElementById('copy_main');
+var main_code = document.getElementById("code_main") ? document.getElementById("code_main").innerHTML : "-";
 
-console.log("hello world :o");
+if (komutlar_button) {
+  komutlar_button.addEventListener('click', function(event) {
+    copyTextToClipboard(komutlar_code);
+  });
+}
+if (main_button) {
+  main_button.addEventListener('click', function(event) {
+    copyTextToClipboard(main_code);
+  });
+} 
 
-// define variables that reference elements on our page
-const dreamsList = document.getElementById("dreams");
-const dreamsForm = document.querySelector("form");
 
-// a helper function that creates a list item for a given dream
-function appendNewDream(dream) {
-  const newListItem = document.createElement("li");
-  newListItem.innerText = dream;
-  dreamsList.appendChild(newListItem);
+function goBack() {
+  window.history.back();
+}
+function fallbackCopyTextToClipboard(text) {
+  var textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.style.top = "0";
+  textArea.style.left = "0";
+  textArea.style.position = "fixed";
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  try {
+    var successful = document.execCommand('copy');
+    var msg = successful ? 'kopyalandı' : 'kopyalanamadı';
+    console.log('kod  ' + msg);
+  } catch (err) {
+    console.error('kod kopyalanamadı: ', err);
+  }
+  document.body.removeChild(textArea);
+}
+function copyTextToClipboard(text) {
+  if (!navigator.clipboard) {
+    fallbackCopyTextToClipboard(text);
+    return;
+  }
+  navigator.clipboard.writeText(text).then(function() {
+    console.log('Kod başarıyla kopyalandı');
+  }, function(err) {
+    console.error('kod kopyalanamadı: ', err);
+  });
 }
 
-// fetch the initial list of dreams
-fetch("/dreams")
-  .then(response => response.json()) // parse the JSON from the server
-  .then(dreams => {
-    // remove the loading text
-    dreamsList.firstElementChild.remove();
-  
-    // iterate through every dream and add it to our page
-    dreams.forEach(appendNewDream);
-  
-    // listen for the form to be submitted and add a new dream when it is
-    dreamsForm.addEventListener("submit", event => {
-      // stop our form submission from refreshing the page
-      event.preventDefault();
-
-      // get dream value and add it to the list
-      let newDream = dreamsForm.elements.dream.value;
-      dreams.push(newDream);
-      appendNewDream(newDream);
-
-      // reset form
-      dreamsForm.reset();
-      dreamsForm.elements.dream.focus();
-    });
-  });
+  window.onload = function() {
+    document.addEventListener("contextmenu", function(e){
+      e.preventDefault();
+    }, false);
+    document.addEventListener("keydown", function(e) {
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+        disabledEvent(e);
+      }
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
+        disabledEvent(e);
+      }
+      if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+        disabledEvent(e);
+      }
+      if (e.ctrlKey && e.keyCode == 85) {
+        disabledEvent(e);
+      }
+      if (event.keyCode == 123) {
+        disabledEvent(e);
+      }
+    }, false);
+    function disabledEvent(e){
+      if (e.stopPropagation){
+        e.stopPropagation();
+      } else if (window.event){
+        window.event.cancelBubble = true;
+      }
+      e.preventDefault();
+      return false;
+    }
+  };
