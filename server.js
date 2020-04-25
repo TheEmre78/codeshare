@@ -21,9 +21,9 @@ for (let rank in ranks) {
 
 const IDler = {
   botID: "703534808281907240",
-  botToken: "",
+  botToken: "NzAzNTM0ODA4MjgxOTA3MjQw.XqQAjQ.1jwiy9N-MGfF6XodMZWWwzNpJQo",
   botSecret: "VwfyD0N79YIf_KsZxd0VixrndycMiEau",
-  botCallbackURL: "CALLBACK URLNİZ",
+  botCallbackURL: "https://dark-site.glitch.me/callback",
   sunucuID: "SUNUCU ID",
   sunucuDavet: "https://discord.gg/yWDSgxz",
   kodLogKanalı: "LOG KANALI",
@@ -585,7 +585,7 @@ app.post("/paylasim", (req, res) => {
     .setTimestamp()
     .setAuthor("Bir Kod Paylaşıldı!",client.user.avatarURL)
     .addField("Kod Bilgileri",`**Adı:** ${obj.isim} \n**Açıklaması:** ${obj.desc} \n**Değeri:** ${obj.kod_rank}`)
-    .addField("Kod Sayfası", `[Tıkla!](https://code-academy.is-my.fun/${obj.kod_rank}/${obj.id})`));
+    .addField("Kod Sayfası", `[Tıkla!](https://dark-site.glitch.me/${obj.kod_rank}/${obj.id})`));
   res.redirect(`/${obj.kod_rank}/${obj.id}`);
 });
 
